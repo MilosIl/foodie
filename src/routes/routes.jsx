@@ -1,10 +1,4 @@
-import {
-  HomePageLayout,
-  RegisterPageLayout,
-  ProfilePageLayout,
-  LoginPageLayout,
-  RecipesPageLayout,
-} from "@/layouts";
+import { HomePageLayout, LoginPageLayout } from "@/layouts";
 
 import {
   HomePage,
@@ -39,7 +33,7 @@ const routes = [
   },
   {
     path: "/register",
-    element: <RegisterPageLayout />,
+    element: <LoginPageLayout />,
     children: [
       {
         index: true,
@@ -51,23 +45,21 @@ const routes = [
     path: "/profile/:id",
     element: (
       <ProtectedRoute>
-        <ProfilePageLayout />
+        <ProfilePage />
       </ProtectedRoute>
     ),
-    children: [
-      {
-        index: true,
-        element: <ProfilePage />,
-      },
-    ],
   },
   {
     path: "/recipes",
-    element: <RecipesPageLayout />,
+    element: <HomePageLayout />,
     children: [
       {
         index: true,
-        element: <RecipesPage />,
+        element: (
+          <ProtectedRoute>
+            <RecipesPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

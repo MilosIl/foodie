@@ -78,7 +78,8 @@ export const useRecipeOfTheDay = () => {
   // This ensures the same recipe shows for the entire day
   const today = new Date().toDateString();
 
-  const recipeId = Math.floor(Math.random() * 100) + 1;
+  const recipeId = Math.max(Math.floor(Math.random() * 50) + 1);
+  console.log(recipeId)
   return useQuery({
     queryKey: [...recipeKeys.all, "recipeOfTheDay", today],
     queryFn: () => getOneRecipe(recipeId),

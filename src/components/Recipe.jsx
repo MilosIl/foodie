@@ -36,8 +36,9 @@ const Recipe = ({
           </span>
         ))}
         <img src={image} alt={image} className="rounded-lg" />
-        <div className="flex justify-end items-center mt-2 w-full">
-          <Button onClick={toggle}>See more</Button>
+        <div className="flex justify-between items-center mt-2 w-full">
+          icon like
+          <Button onClick={toggle} label={"See more"} />
         </div>
       </div>
       {show ? (

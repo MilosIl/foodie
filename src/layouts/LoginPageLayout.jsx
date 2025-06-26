@@ -1,11 +1,10 @@
 import { Outlet } from "react-router";
-import { Footer, Navbar } from "@/components";
+import { Footer } from "@/components";
 
 const LoginPageLayout = () => {
   return (
     <>
-      <Navbar />
-      <main className="bg-slate-100 mx-auto px-4 py-8 container">
+      <main className="flex justify-center items-center bg-slate-100 mx-auto h-screen container">
         <Outlet />
       </main>
       <Footer />

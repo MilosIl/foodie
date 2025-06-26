@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import { Button, Input } from "@/components/ui";
 import { Link } from "react-router";
+import { z } from "zod";
 
-const LoginForm = ({
-  onSubmit,
-  isLoading = false,
-  error = null,
-  defaultValues = {},
-}) => {
+const loginSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
   const {
     register,
     handleSubmit,
@@ -16,7 +17,6 @@ const LoginForm = ({
     defaultValues: {
       username: "",
       password: "",
-      ...defaultValues,
     },
   });
 
@@ -27,9 +27,8 @@ const LoginForm = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className="w-full max-w-md">
       <div className="bg-white shadow-lg p-8 rounded-lg">
-        {/* Header */}
         <div className="mb-8 text-center">
           <h2 className="mb-2 font-bold text-gray-900 text-3xl">
             Welcome Back
@@ -37,7 +36,6 @@ const LoginForm = ({
           <p className="text-gray-600">Sign in to your account to continue</p>
         </div>
 
-        {/* Global Error Message */}
         {error && (
           <div className="bg-red-50 mb-6 p-4 border border-red-200 rounded-md">
             <p className="text-red-600 text-sm text-center">{error}</p>
@@ -89,7 +87,6 @@ const LoginForm = ({
             />
           </div>
 
-          {/* Remember Me & Forgot Password */}
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <input
@@ -105,33 +102,14 @@ const LoginForm = ({
                 Remember me
               </label>
             </div>
-
-            <div className="text-sm">
-              <Link
-                to="/forgot-password"
-                className="font-medium text-orange-500 hover:text-orange-600"
-              >
-                Forgot password?
-              </Link>
-            </div>
           </div>
 
-          {/* Submit Button */}
           <Button
             type="submit"
             disabled={isLoading || isSubmitting}
             className="w-full"
-            size="large"
-          >
-            {isLoading || isSubmitting ? (
-              <div className="flex justify-center items-center">
-                <div className="mr-2 border-white border-b-2 rounded-full w-4 h-4 animate-spin"></div>
-                Signing in...
-              </div>
-            ) : (
-              "Sign In"
-            )}
-          </Button>
+            label={"Login"}
+          />
         </form>
 
         {/* Divider */}
