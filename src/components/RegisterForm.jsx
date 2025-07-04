@@ -1,75 +1,16 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@/components/ui";
 import { Link } from "react-router";
-import { z } from "zod";
+import { Button, Input } from "@/components/ui";
 
-const registerSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(1, "First name is required")
-      .min(2, "First name must be at least 2 characters"),
-    lastName: z
-      .string()
-      .min(1, "Last name is required")
-      .min(2, "Last name must be at least 2 characters"),
-    username: z
-      .string()
-      .min(1, "Username is required")
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username must be less than 20 characters"),
-    email: z
-      .string()
-      .min(1, "Email is required")
-      .email("Please enter a valid email address"),
-    password: z
-      .string()
-      .min(1, "Password is required")
-      .min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
+// Pure presentational component with no business logic
 const RegisterForm = ({
+  register,
+  errors,
+  isLoading,
+  isSubmitting,
+  handleSubmit,
   onSubmit,
-  isLoading = false,
-  error = null,
-  defaultValues = {},
+  error,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-
-      ...defaultValues,
-    },
-  });
-
-  const handleFormSubmit = (data) => {
-
-    const {
-      confirmPassword: _confirmPassword,
-      ...submitData
-    } = data;
-
-    if (onSubmit) {
-      onSubmit(submitData);
-    }
-  };
-
   return (
     <div className="mx-auto w-full max-w-lg">
       <div className="bg-white shadow-lg p-8 rounded-lg">
@@ -88,8 +29,7 @@ const RegisterForm = ({
           </div>
         )}
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
             <div>
               <Input

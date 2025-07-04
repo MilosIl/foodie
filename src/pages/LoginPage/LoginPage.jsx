@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { LoginForm } from "@/components";
+import { LoginContainer } from "@/containers";
 import {
   loginUser,
   selectAuthLoading,
@@ -44,7 +44,11 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginForm onSubmit={handleLogin} isLoading={isLoading} error={error} />
+    <LoginContainer
+      onSubmit={handleLogin}
+      isLoading={isLoading}
+      error={error}
+    />
   );
 };
 

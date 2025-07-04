@@ -45,7 +45,7 @@ const Modal = ({
     <div className="z-50 fixed inset-0 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="fixed inset-0 bg-black/70 bg-opacity-50 transition-opacity"
         onClick={handleBackdropClick}
       />
 

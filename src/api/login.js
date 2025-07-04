@@ -37,8 +37,7 @@ export const isLoggedIn = async () => {
   }
 
   try {
-    const response = await axiosInstance.get("/auth/me", {
-      // Changed from "/user/me"
+    const response = await axiosInstance.get("/user/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

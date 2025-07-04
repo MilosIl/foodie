@@ -1,31 +1,16 @@
-import { useForm } from "react-hook-form";
-import { Button, Input } from "@/components/ui";
 import { Link } from "react-router";
-import { z } from "zod";
+import { Button, Input } from "@/components/ui";
 
-const loginSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-  });
-
-  const handleFormSubmit = (data) => {
-    if (onSubmit) {
-      onSubmit(data);
-    }
-  };
-
+// Pure presentational component with no business logic
+const LoginForm = ({
+  register,
+  errors,
+  isLoading,
+  isSubmitting,
+  handleSubmit,
+  onSubmit,
+  error,
+}) => {
   return (
     <div className="w-full max-w-md">
       <div className="bg-white shadow-lg p-8 rounded-lg">
@@ -43,22 +28,11 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
         )}
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Username Field */}
           <div>
             <Input
-              {...register("username", {
-                required: "Username is required",
-                minLength: {
-                  value: 3,
-                  message: "Username must be at least 3 characters",
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9_]+$/,
-                  message:
-                    "Username can only contain letters, numbers, and underscores",
-                },
-              })}
+              {...register("username")}
               name="username"
               type="text"
               label="Username"
@@ -71,13 +45,7 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
           {/* Password Field */}
           <div>
             <Input
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
+              {...register("password")}
               name="password"
               type="password"
               label="Password"
@@ -90,8 +58,8 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <input
+                {...register("rememberMe")}
                 id="remember-me"
-                name="remember-me"
                 type="checkbox"
                 className="border-gray-300 rounded focus:ring-orange-500 w-4 h-4 text-orange-500"
               />

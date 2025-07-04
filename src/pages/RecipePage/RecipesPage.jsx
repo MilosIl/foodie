@@ -2,6 +2,7 @@ import { IconSpinner } from "@/assets/icons/IconSpinner";
 import { Input, Recipe, Button } from "@/components";
 import { useRecipes, useSearchRecipes } from "@/services/recipe";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const RECIPES_PER_PAGE = 12;
 
@@ -96,17 +97,11 @@ const RecipesPage = () => {
                 key={recipe.id}
                 className="bg-white shadow-md rounded-lg overflow-hidden"
               >
-                <Recipe {...recipe} />
+                <Link to={`/recipes/${recipe.id}`} className="block h-full">
+                  <Recipe {...recipe} />
+                </Link>
               </div>
             ))}
-          </div>
-
-          <div className="mb-6 text-center">
-            <p className="text-gray-600">
-              {isSearchMode
-                ? `Found ${displayData.total || displayData.recipes.length} recipes matching "${searchQuery}"`
-                : `Showing ${displayData.recipes.length} of ${displayData.total || "many"} recipes`}
-            </p>
           </div>
 
           {!isSearchMode && (
@@ -115,9 +110,8 @@ const RecipesPage = () => {
                 variant="outline"
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
-              >
-                Previous
-              </Button>
+                label={"Previous"}
+              />
 
               <span className="text-gray-600">Page {currentPage + 1}</span>
 
@@ -125,9 +119,8 @@ const RecipesPage = () => {
                 variant="outline"
                 onClick={handleNextPage}
                 disabled={displayData.recipes.length < RECIPES_PER_PAGE}
-              >
-                Next
-              </Button>
+                label={"Next"}
+              />
             </div>
           )}
         </>

@@ -32,7 +32,7 @@ const Select = forwardRef(
     focus:ring-opacity-50
     transition-colors
     duration-200
-
+    p-2
     ${disabled ? "bg-gray-100 text-gray-500 cursor-not-allowed" : "cursor-pointer hover:border-gray-400"}
     ${error ? "pr-10" : "pr-10"}
     ${className}
@@ -49,7 +49,7 @@ const Select = forwardRef(
     pointer-events-none
     transition-transform
     duration-200
-    ${disabled ? "text-gray-400" : "text-gray-500"}
+    ${disabled ? "text-gray-400" : "text-orange-500"}
 
   `
       .trim()

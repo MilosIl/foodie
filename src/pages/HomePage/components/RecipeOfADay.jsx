@@ -1,9 +1,12 @@
+import { IconSpinner } from "@/assets";
 import { Recipe } from "@/components";
 import { useRecipeOfTheDay } from "@/services/recipe";
 
 const RecipeOfADay = () => {
-  const { data: recipeOfTheDay, isLoading } = useRecipeOfTheDay();
-  console.log(recipeOfTheDay);
+  const { data: recipeOfTheDay, isLoading } = useRecipeOfTheDay(
+    
+  );
+
   return (
     <section className="mx-auto">
       <h2 className="my-8 font-bold text-2xl text-center">

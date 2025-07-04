@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = import.meta.env.VITE_API_URL || "https://dummyjson.com/";
+const URL = "https://dummyjson.com/";
 
 const axiosInstance = axios.create({
   baseURL: URL,

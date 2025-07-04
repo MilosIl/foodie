@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
 import { selectUser, selectAuthLoading } from "@/store/AuthSlice";
+import { selectFavoriteRecipes } from "@/store/FavoriteRecipesSlice";
 import { Button } from "@/components/ui";
+import { Link } from "react-router";
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
   const isLoading = useSelector(selectAuthLoading);
+  const favoriteRecipes = useSelector(selectFavoriteRecipes);
 
   if (isLoading) {
     return (
@@ -182,14 +185,70 @@ const ProfilePage = () => {
             <h2 className="mb-4 font-bold text-gray-900 text-xl">
               Favorite Recipes
             </h2>
-            <div className="bg-white p-8 border border-gray-200 rounded-lg text-center">
-              <p className="text-gray-500">
-                Your favorite recipes will appear here. Start exploring and save
-                recipes you love!
-              </p>
-              <Button variant="primary" className="mt-4">
-                Browse Recipes
-              </Button>
+            <div className="bg-white p-8 border border-gray-200 rounded-lg">
+              {favoriteRecipes.length > 0 ? (
+                <div>
+                  <p className="text-gray-600 mb-4 text-center">
+                    You have {favoriteRecipes.length} favorite{" "}
+                    {favoriteRecipes.length === 1 ? "recipe" : "recipes"}!
+                  </p>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {favoriteRecipes.map((recipe) => (
+                      <li
+                        key={recipe.id}
+                        className="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-orange-50 transition-colors"
+                      >
+                        <img
+                          src={recipe.image}
+                          alt={recipe.name}
+                          className="w-12 h-12 rounded-md object-cover mr-3"
+                        />
+                        <div className="flex-1">
+                          <Link
+                            to={`/recipes/${recipe.id}`}
+                            className="text-gray-900 hover:text-orange-500 transition-colors font-medium"
+                          >
+                            {recipe.name}
+                          </Link>
+                          {recipe.tags?.length > 0 && (
+                            <div className="flex flex-wrap mt-1">
+                              {recipe.tags.slice(0, 2).map((tag, idx) => (
+                                <span
+                                  key={idx}
+                                  className="text-xs bg-orange-100 text-orange-800 rounded-md px-2 py-1 mr-1 mb-1"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6 text-center">
+                    <Link to="/favorites">
+                      <Button variant="primary" label="View All Favorites">
+                        View All Favorites
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <p className="text-gray-600">
+                    You have no favorite recipes yet.
+                  </p>
+                  <p className="text-gray-500 text-sm mt-2 mb-4">
+                    Start exploring recipes and save your favorites!
+                  </p>
+                  <Link to="/recipes">
+                    <Button variant="primary" label="Browse Recipes">
+                      Browse Recipes
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

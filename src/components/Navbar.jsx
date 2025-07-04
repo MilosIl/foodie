@@ -26,6 +26,7 @@ const Navbar = () => {
 
   const privateLinks = [
     { id: 5, text: "Profile", url: `/profile/${user?.id || ""}` },
+    { id: 6, text: "Favorites", url: "/favorites" },
   ];
 
   return (
@@ -79,12 +80,10 @@ const Navbar = () => {
               <li>
                 <Button
                   variant="outline"
-                  size="small"
                   onClick={handleLogout}
-                  className="hover:bg-orange-50 border-orange-400 text-orange-400"
-                >
-                  Logout
-                </Button>
+                  className="hover:bg-orange-50 border-orange-400 text-orange-400 text-xs "
+                  label={"Logout"}
+                />
               </li>
             </>
           ) : (

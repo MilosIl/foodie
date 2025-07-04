@@ -3,7 +3,7 @@ import { axiosInstance } from "@/api/axiosInstance";
 
 // Async thunks for auth operations
 export const loginUser = createAsyncThunk(
-  "auth/loginUser",
+  "/auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post("/auth/login", {
@@ -165,6 +165,9 @@ export const AuthSlice = createSlice({
   reducers: {
     // Synchronous actions
     logout: (state) => {
+      // Get user ID before clearing user state
+      const userId = state.user?.id;
+
       state.user = null;
       state.token = null;
       state.refreshToken = null;
@@ -176,6 +179,11 @@ export const AuthSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
+
+      // If we had a userId, also clear that user's favorites
+      if (userId) {
+        localStorage.removeItem(`favorites-${userId}`);
+      }
     },
 
     clearError: (state) => {

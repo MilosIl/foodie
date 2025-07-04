@@ -6,6 +6,8 @@ import {
   RecipesPage,
   RegisterPage,
   LoginPage,
+  FavoritesPage,
+  SingleRecipePage,
 } from "@/pages";
 
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
@@ -55,9 +57,23 @@ const routes = [
     children: [
       {
         index: true,
+        element: <RecipesPage />,
+      },
+      {
+        path: ":id",
+        element: <SingleRecipePage />,
+      },
+    ],
+  },
+  {
+    path: "/favorites",
+    element: <HomePageLayout />,
+    children: [
+      {
+        index: true,
         element: (
           <ProtectedRoute>
-            <RecipesPage />
+            <FavoritesPage />
           </ProtectedRoute>
         ),
       },

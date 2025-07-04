@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { RegisterForm } from "@/components";
+import { RegisterContainer } from "@/containers";
 import {
   registerUser,
   loginUser,
@@ -68,7 +68,7 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
-      <RegisterForm
+      <RegisterContainer
         onSubmit={handleRegister}
         isLoading={isLoading}
         error={error}
